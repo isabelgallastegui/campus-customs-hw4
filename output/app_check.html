@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Campus Customs — App Check</title>
+<style>
+  :root {
+    --navy: #00356b;
+    --ink: #0f1d30;
+    --muted: #6d7b8d;
+    --line: #e3e1dc;
+    --paper: #f4f3f1;
+    --ok: #2f6b45;
+    --bad: #8c3a3a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { border-bottom: 3px solid var(--navy); padding-bottom: 24px; margin-bottom: 40px; }
+  h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .meta { color: var(--muted); font-size: 14px; margin: 0; }
+  .summary {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px;
+  }
+  .summary span {
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; font-size: 13px;
+  }
+  section {
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 28px; margin-bottom: 32px;
+  }
+  h2 { font-size: 21px; margin: 0 0 6px; }
+  h2 .n { color: var(--muted); font-weight: 600; margin-right: 8px; }
+  .what { color: var(--muted); font-size: 14.5px; margin: 0 0 20px; }
+  figure { margin: 0 0 20px; }
+  figure img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--line); border-radius: 8px; background: #fff;
+  }
+  figcaption { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
+  .proves {
+    background: #f7f9fc; border-left: 3px solid var(--navy);
+    padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 0 0 20px; font-size: 15px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 6px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td.num { font-variant-numeric: tabular-nums; }
+  code { font-size: 12.5px; background: var(--paper); padding: 2px 6px; border-radius: 4px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .cols h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0 0 4px; }
+  .quote { background: var(--paper); border-radius: 8px; padding: 14px 16px; font-size: 14.5px; }
+  .quote .q { font-weight: 600; margin-bottom: 8px; }
+  .badge {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 10px; border-radius: 999px; vertical-align: middle;
+  }
+  .badge.pass { background: #e5f1ea; color: var(--ok); }
+  .badge.fail { background: #fbeceb; color: var(--bad); }
+  .ok { color: var(--ok); }
+  .bad { color: var(--bad); font-weight: 700; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Campus Customs — App Check</h1>
+  <p class="meta">
+    Evidence that the main features of the site work end to end.
+    Frontend on <code>localhost:5174</code>, backend on <code>localhost:8000</code>,
+    data from <code>data/campus_customs.db</code>. Run 06 October 2026, 23:43.
+  </p>
+  <div class="summary">
+    <span><span class='badge pass'>PASS</span> &nbsp;Test 1 — price &amp; stock</span>
+    <span><span class='badge pass'>PASS</span> &nbsp;Test 2 — category cards</span>
+    <span><span class='badge pass'>PASS</span> &nbsp;Test 3 — You May Also Like</span>
+  </div>
+  <p class="meta" style="margin-top:14px">
+    Each test was run by a script that drives a real browser
+    (<code>tests/app_check.mjs</code>), takes the screenshot, and then compares what
+    the page showed against the database.
+  </p>
+</header>
+
+<!-- ------------------------------------------------------------------ -->
+<section>
+  <h2><span class="n">Test 1</span>Chatbot price and stock <span class='badge pass'>PASS</span></h2>
+  <p class="what">
+    Asked the chatbot about a real product and checked the answer against the
+    <code>catalogue</code> and <code>inventory</code> tables.
+  </p>
+
+  <figure>
+    <img src="app_check_images/test1-price-and-stock.png"
+         alt="Chat panel showing the Yale Mom Hoodie price and per-size stock" />
+    <figcaption>The chat panel on the live site, answering a price and stock question.</figcaption>
+  </figure>
+
+  <p class="proves">
+    The chatbot replied <strong>$68</strong> with <strong>25&nbsp;XS, 8&nbsp;S, 8&nbsp;M,
+    25&nbsp;L, 8&nbsp;XL and 2&nbsp;XXL (76 total)</strong> — every one of those
+    figures matches the database exactly, so the answer is read from the live
+    inventory rather than guessed.
+  </p>
+
+  <div class="cols">
+    <div>
+      <h3>What was asked and answered</h3>
+      <div class="quote">
+        <div class="q">Q: How much is the Yale Mom Hoodie and how many do you have in each size?</div>
+        <div>A: The Yale Mom Hoodie is $68. You have 25 XS, 8 S, 8 M, 25 L, 8 XL, and 2 XXL in stock (76 total).</div>
+      </div>
+    </div>
+    <div>
+      <h3>Database — Yale Mom Hoodie, $68.00</h3>
+      <table>
+        <thead><tr><th>Size</th><th>Quantity in DB</th></tr></thead>
+        <tbody><tr><td>XS</td><td class='num'>25</td></tr><tr><td>S</td><td class='num'>8</td></tr><tr><td>M</td><td class='num'>8</td></tr><tr><td>L</td><td class='num'>25</td></tr><tr><td>XL</td><td class='num'>8</td></tr><tr><td>XXL</td><td class='num'>2</td></tr>
+          <tr><td><strong>Total</strong></td><td class="num"><strong>76</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------ -->
+<section>
+  <h2><span class="n">Test 2</span>Category search updates the page <span class='badge pass'>PASS</span></h2>
+  <p class="what">
+    Asked the chatbot a category question and checked that the matching products
+    appear as product cards on the website, not only as text in the chat.
+  </p>
+
+  <figure>
+    <img src="app_check_images/test2-category-cards.png"
+         alt="Product cards rendered on the Shop page after asking the chatbot about hoodies" />
+    <figcaption>
+      The Shop page after asking &ldquo;What hoodies do you have?&rdquo; — the panel is
+      headed &ldquo;From your chat with Bulldog&rdquo; and the chat confirms
+      &ldquo;Showing these on the page.&rdquo;
+    </figcaption>
+  </figure>
+
+  <p class="proves">
+    The question produced <strong>6 product cards on the page</strong>,
+    each with its image, name, price and stock. Every card resolves to a real
+    catalogue product at the price shown, and each one links to that product&rsquo;s page.
+  </p>
+
+  <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 4px">
+    Cards rendered, checked against the catalogue
+  </h3>
+  <table>
+    <thead><tr><th>Product on the card</th><th>Links to</th><th>Price shown</th><th>Verification</th></tr></thead>
+    <tbody><tr><td>Basic Hoodie Big Yale</td><td><code>basic-hoodie-big-yale</code></td><td class='num'>$68.00</td><td class='ok'>matches database</td></tr><tr><td>Champion Reverse Weave Hoodie 1</td><td><code>champion-reverse-weave-hoodie-1</code></td><td class='num'>$68.00</td><td class='ok'>matches database</td></tr><tr><td>Crew Left Chest Hoodie</td><td><code>crew-left-chest-hoodie</code></td><td class='num'>$68.00</td><td class='ok'>matches database</td></tr><tr><td>District Vit Hoodie Vintage Bulldog</td><td><code>district-vit-hoodie-vintage-bulldog</code></td><td class='num'>$68.00</td><td class='ok'>matches database</td></tr><tr><td>District Vit Hoodie Vintage Sailor Bulldog</td><td><code>district-vit-hoodie-vintage-sailor-bulldog</code></td><td class='num'>$68.00</td><td class='ok'>matches database</td></tr><tr><td>Fencing Left Chest Hoodie</td><td><code>fencing-left-chest-hoodie</code></td><td class='num'>$68.00</td><td class='ok'>matches database</td></tr></tbody>
+  </table>
+</section>
+
+<!-- ------------------------------------------------------------------ -->
+<section>
+  <h2><span class="n">Test 3</span>&ldquo;You May Also Like&rdquo; <span class='badge pass'>PASS</span></h2>
+  <p class="what">
+    Opened a product page, checked that similar-product recommendations appear,
+    and clicked one to confirm it opens that product.
+  </p>
+
+  <figure>
+    <img src="app_check_images/test3-you-may-also-like.png"
+         alt="You May Also Like section at the bottom of a product page" />
+    <figcaption>
+      The &ldquo;You May Also Like&rdquo; section on the Champion Reverse Weave Crewneck page.
+    </figcaption>
+  </figure>
+
+  <p class="proves">
+    4 recommendations appear, all real catalogue products with
+    images, prices and stock. They are genuinely related — a crewneck sweatshirt
+    returns other crewneck sweatshirts in the same $58 price band.
+  </p>
+
+  <table>
+    <thead><tr><th>Recommendation</th><th>Price</th><th>Links to</th></tr></thead>
+    <tbody><tr><td>Yale Sports Creqneck Field Hockey</td><td class='num'>$58.00</td><td><code>yale-sports-creqneck-field-hockey</code></td></tr><tr><td>Yale Sports Crewneck Volleyball</td><td class='num'>$58.00</td><td><code>yale-sports-crewneck-volleyball</code></td></tr><tr><td>Yale Brother Crewneck</td><td class='num'>$58.00</td><td><code>yale-brother-crewneck</code></td></tr><tr><td>Yale Dad Crewneck</td><td class='num'>$58.00</td><td><code>yale-dad-crewneck</code></td></tr></tbody>
+  </table>
+
+  <figure style="margin-top:26px">
+    <img src="app_check_images/test3b-recommendation-opened.png"
+         alt="The product page opened after clicking a recommendation" />
+    <figcaption>After clicking the first recommendation.</figcaption>
+  </figure>
+
+  <p class="proves">
+    Clicking <strong>Yale Sports Creqneck Field Hockey</strong> opened
+    <code>/products/yale-sports-creqneck-field-hockey</code> showing
+    <strong>$58.00</strong> and all
+    6 sizes with their stock — so the recommendations
+    are clickable and behave like any other product card.
+  </p>
+</section>
+
+<footer>
+  All three tests passed. Re-run with <code>node tests/app_check.mjs</code> while
+  the frontend and backend are running.
+</footer>
+
+</div>
+</body>
+</html>

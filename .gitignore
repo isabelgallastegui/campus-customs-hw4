@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Secrets — never commit
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------------------
+# Local data pack — supplied separately, not part of this repository.
+# See README.md for how to add it.
+# ---------------------------------------------------------------------------
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Product photographs, and the display copies generated from them
+data/products/
+data/products_web/
+data/products_hero/
+
+# ---------------------------------------------------------------------------
+# Dependencies and build output
+# ---------------------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+node_modules/
+dist/
+*.tsbuildinfo
+
+tests/results.json
+
+# ---------------------------------------------------------------------------
+# Editor / OS noise
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

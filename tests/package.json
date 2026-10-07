@@ -1,0 +1,13 @@
+{
+  "name": "campus-customs-app-check",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Drives the running site and captures screenshot evidence for output/app_check.html",
+  "scripts": {
+    "check": "node app_check.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
